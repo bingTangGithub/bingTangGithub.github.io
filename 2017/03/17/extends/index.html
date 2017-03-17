@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>extends | bingTang的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+##　js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="extends">
+<meta property="og:url" content="http://bingTangGithub.github.io/2017/03/17/extends/index.html">
+<meta property="og:site_name" content="bingTang的博客">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+##　js">
+<meta property="og:updated_time" content="2017-03-17T07:11:05.615Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="extends">
+<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+##　js">
+  
+    <link rel="alternate" href="/atom.xml" title="bingTang的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">bingTang的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://bingTangGithub.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-extends" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/17/extends/" class="article-date">
+  <time datetime="2017-03-17T06:56:25.261Z" itemprop="datePublished">2017-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      extends
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<p>##　js中的原型链，prototype与<strong>proto</strong>的关系</p>
+<p>其实只要记住一句话：<strong>对象的<strong>proto</strong>等于创建这个对象的构造函数的prototype</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">var p = new Person();</div><div class="line">alert(p.__proto__ === Person.prototype); //true</div></pre></td></tr></table></figure>
+<p>那么 <strong>proto</strong>是什么呢？</p>
+<p>每个对象都会在其内部初始化一个属性，也就是<strong>proto</strong>，当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去<strong>proto</strong> 里找这个属性，这个属性又会有自己的<strong>proto</strong>，于是就这样一直找下去，这就是我们平时所说的原型链的概念。</p>
+<p>下边看一个简单的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">	alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">var p = new Person();</div><div class="line">p.Say();</div></pre></td></tr></table></figure></p>
+<p>首先 var p = new Person(); 于是得到 p.<strong>proto</strong> = Person.prototype。那么当我们调用 p.say()时，首先p中没有Say这个属性，于是他就需要到它的<strong>proto</strong>中去找，也就是Person.prototype，而我们在上边定义了  Person.prototype.Say=function(){}; 于是，就找到了这个方法。</p>
+<p>看一个<strong>有重量</strong>的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">  alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">Person.prototype.Salary = 50000;</div><div class="line"> </div><div class="line">var Programmer = function () &#123; &#125;;</div><div class="line">Programmer.prototype = new Person();</div><div class="line">Programmer.prototype.WriteCode = function () &#123;</div><div class="line">	alert(&quot;programmer writes code&quot;);</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">Programmer.prototype.Salary = 500;</div><div class="line"> </div><div class="line">var p = new Programmer();</div><div class="line">p.Say();</div><div class="line">p.WriteCode();</div><div class="line">alert(p.Salary);</div></pre></td></tr></table></figure></p>
+<p><code>好好分析一下</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var p = new Programmer(); 得到 p.__proto__=Programmer.prototype;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Programmer.prototype=new Person();</div></pre></td></tr></table></figure>
+<p>将上述式子拆开，可以得到以下结论：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var p1=new Person();</div><div class="line">Programmer.prototype=p1;</div><div class="line">//于是由</div><div class="line">p1.__proto__=Person.prototype;</div><div class="line">// 得到</div><div class="line">Programmer.prototype.__proto__=Person.prototype;</div><div class="line">//又由于</div><div class="line">p.__proto__=Programmer.prototype;</div><div class="line">//所以 </div><div class="line">p.__proto__.__proto__=Person.prototype;</div></pre></td></tr></table></figure></p>
+<p><code>好好分析</code> 来看上面的结果,p.Say()。由于p没有Say这个属性，于是去p.<strong>proto</strong>，也就是 Programmer.prototype，也就是p1中去找，由于p1中也没有Say，那就去p.<strong>proto</strong>.<strong>proto</strong>，也就是 Person.prototype中去找，于是就找到了alert(“Person say”)的方法。</p>
+<p>其余的也都是同样的道理。</p>
+<p>这也就是原型链的实现原理。<br>最后，其实prototype只是一个假象，他在实现原型链中只是起到了一个辅助作用，换句话说，他只是在new的时候有着一定的价值，而原型链的本质，其实在于<strong>proto</strong>！</p>
+<p><strong>还是那句话</strong>： 一个对象的<strong>proto</strong>等于创建该对象的构造函数的prototype，然后就像用数学式子推导一下，列出以一堆<strong>proto</strong>链子，一直顺着<strong>proto</strong>链子找下去即可。记住下边的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">var p = new Person();</div><div class="line">alert(p.__proto__ === Person.prototype); //true</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bingTangGithub.github.io/2017/03/17/extends/" data-id="cj0dhp77k0001zgqur10nohut" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/17/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/17/extends/">extends</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/17/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 bingTang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
