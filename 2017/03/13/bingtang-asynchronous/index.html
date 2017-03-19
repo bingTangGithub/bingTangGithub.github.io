@@ -96,7 +96,7 @@
 <meta property="og:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
 1.js的单线程与异步Javascript语言的执行环境是”单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成">
 <meta property="og:image" content="http://172.16.1.15:8888/files/1489114133377asynchronous.jpg">
-<meta property="og:updated_time" content="2017-03-19T02:57:48.286Z">
+<meta property="og:updated_time" content="2017-03-19T03:00:10.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js的单线程与异步">
 <meta name="twitter:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
@@ -409,7 +409,7 @@
 <h2 id="3-Javascript异步编程的4种方法"><a href="#3-Javascript异步编程的4种方法" class="headerlink" title="3.Javascript异步编程的4种方法"></a>3.Javascript异步编程的4种方法</h2><p> 如何利用浏览器的异步机制</p>
 <p>我们可以利用浏览器给我们开放的这几个窗口，浏览器定时器线程和事件触发线程是好利用的，网络请求线程不适合我们使用。以下是四种用定时器实现的异步编程</p>
 <ul>
-<li><p>a 回调函数</p>
+<li><p>a. 回调函数</p>
 <p>什么是回调函数</p>
 </li>
 </ul>
@@ -420,20 +420,20 @@
 <p>采用这种方式，我们把同步操作变成了异步操作，f1不会堵塞程序运行，相当于先执行程序的主要逻辑，将耗时的操作推迟执行。</p>
 <p>js代码会至上而下一条线执行下去，但是有时候我们需要等到一个操作结束之后再进行下一个操作，这时候就需要用到回调函数。</p>
 <ul>
-<li>b 事件监听</li>
+<li>b. 事件监听</li>
 </ul>
 <p>另一种思路是采用事件驱动模式。任务的执行不取决于代码的顺序，而取决于某个事件是否发生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">还是以f1和f2为例。首先，为f1绑定一个事件（这里采用的jQuery的写法）。</div><div class="line">　　f1.on(&apos;done&apos;, f2);</div></pre></td></tr></table></figure></p>
 <p>上面这行代码的意思是，当f1发生done事件，就执行f2。然后，对f1进行改写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f1()&#123;</div><div class="line">　　setTimeout(function () &#123;</div><div class="line">　　　　// f1的任务代码</div><div class="line">　　　　　f1.trigger(&apos;done&apos;);</div><div class="line">　　&#125;, 1000);</div><div class="line">&#125;</div><div class="line">f1.trigger(&apos;done&apos;)表示，执行完成后，立即触发done事件，从而开始执行f2。</div></pre></td></tr></table></figure></p>
 <p>当调用的时候，报错：f1没有on方法，为此，为函数添加on方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var eventMap = &#123;&#125;;</div><div class="line">Function.prototype.on = function (eventName, callback) &#123;</div><div class="line">	if (!eventMap[eventName]) &#123;</div><div class="line">		eventMap[eventName] = [];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	eventMap[eventName].push(callback);</div><div class="line"></div><div class="line">	console.log(&apos;callback has been binded&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <ul>
-<li>c 发布/订阅</li>
+<li>c. 发布/订阅</li>
 </ul>
 <p>我们假定，存在一个”信号中心”，某个任务执行完成，就向信号中心”发布”（publish）一个信号，其他任务可以向信号中心”订阅”（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做”发布/订阅模式”（publish-subscribe pattern），又称”++观察者模式++”（observer pattern）。</p>
 <p>这个模式有多种实现，下面采用的是Ben Alman的Tiny Pub/Sub，这是jQuery的一个插件。<br>首先，f2向”信号中心”jQuery订阅”done”信号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jQuery.subscribe(&quot;done&quot;, f2);</div></pre></td></tr></table></figure></p>
 <p>然后，f1进行如下改写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　function f1()&#123;</div><div class="line">　　　setTimeout(function () &#123;</div><div class="line">　　　　　// f1的任务代码</div><div class="line">　　　　　　jQuery.publish(&quot;done&quot;);</div><div class="line">　　　&#125;, 1000);</div><div class="line">　&#125;</div></pre></td></tr></table></figure></p>
 <p>jQuery.publish(“done”)的意思是，f1执行完成后，向”信号中心”jQuery发布”done”信号，从而引发f2的执行。<br>此外，f2完成执行后，也可以取消订阅（unsubscribe）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jQuery.unsubscribe(&quot;done&quot;, f2);</div></pre></td></tr></table></figure></p>
 <ul>
-<li>d Promises对象</li>
+<li>d. Promises对象</li>
 </ul>
 <p>简单说，它的思想是，每一个异步任务返回一个Promise对象，该对象有一个then方法，允许指定回调函数。比如，f1的回调函数f2,可以写成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f1().then(f2);</div></pre></td></tr></table></figure></p>
 <p>f1要进行如下改写（这里使用的是jQuery的实现）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">　　function f1()&#123;</div><div class="line">　　　　var dfd = $.Deferred();</div><div class="line">　　　　setTimeout(function () &#123;</div><div class="line">　　　　　　// f1的任务代码</div><div class="line">　　　　　　dfd.resolve();</div><div class="line">　　　　&#125;, 500);</div><div class="line">　　　　return dfd.promise;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
