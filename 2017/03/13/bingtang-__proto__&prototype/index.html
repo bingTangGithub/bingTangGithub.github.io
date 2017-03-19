@@ -98,7 +98,8 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
 prototype与__proto__【其实只要记住一句话】：对象的__proto__等于创建这个对象的构造函数的prototype
 123var Person = function ()">
 <meta property="og:image" content="http://172.16.1.15:8888/files/1489371185286extends.jpg">
-<meta property="og:updated_time" content="2017-03-19T03:47:41.568Z">
+<meta property="og:image" content="http://bingTangGithub.github.io/2017/03/13/bingtang-__proto__&prototype/img/extends.png">
+<meta property="og:updated_time" content="2017-03-19T04:31:34.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="prototype与__proto__怎么回事">
 <meta name="twitter:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
@@ -399,7 +400,7 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
 <p>下边看一个简单的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">	alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">var p = new Person();</div><div class="line">p.Say();</div></pre></td></tr></table></figure></p>
 <p>首先 var p = new Person(); 于是得到 <code>p.__proto__ = Person.prototype</code>。那么当我们调用 p.say()时，首先p中没有Say这个属性，于是他就需要到它的<code>__proto__</code>中去找，也就是Person.prototype，而我们在上边定义了  Person.prototype.Say=function(){}; 于是，就找到了这个方法。</p>
 <p>看一个<strong>有重量</strong>的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">  alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">Person.prototype.Salary = 50000;</div><div class="line"> </div><div class="line">var Programmer = function () &#123; &#125;;</div><div class="line">Programmer.prototype = new Person();</div><div class="line">Programmer.prototype.WriteCode = function () &#123;</div><div class="line">	alert(&quot;programmer writes code&quot;);</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">Programmer.prototype.Salary = 500;</div><div class="line"> </div><div class="line">var p = new Programmer();</div><div class="line">p.Say();</div><div class="line">p.WriteCode();</div><div class="line">alert(p.Salary);</div></pre></td></tr></table></figure></p>
-<h3 id="好好看看这张图"><a href="#好好看看这张图" class="headerlink" title="好好看看这张图"></a>好好看看这张图</h3><p>附图一张<img src="http://172.16.1.15:8888/files/1489371185286extends.jpg" alt="image"></p>
+<h3 id="好好看看这张图"><a href="#好好看看这张图" class="headerlink" title="好好看看这张图"></a>好好看看这张图</h3><p>附图一张<img src="http://172.16.1.15:8888/files/1489371185286extends.jpg" alt="image"><br><img src="/2017/03/13/bingtang-__proto__&prototype/img/extends.png" alt="img"></p>
 <p><code>文字说明</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var p = new Programmer(); 得到 p.__proto__=Programmer.prototype;</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Programmer.prototype=new Person();</div></pre></td></tr></table></figure>
 <p>将上述式子拆开，可以得到以下结论：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var p1=new Person();</div><div class="line">Programmer.prototype=p1;</div><div class="line">//于是由</div><div class="line">p1.__proto__=Person.prototype;</div><div class="line">// 得到</div><div class="line">Programmer.prototype.__proto__=Person.prototype;</div><div class="line">//又由于</div><div class="line">p.__proto__=Programmer.prototype;</div><div class="line">//所以 </div><div class="line">p.__proto__.__proto__=Person.prototype;</div></pre></td></tr></table></figure></p>
@@ -443,8 +444,8 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/13/bingtang-ten_features_of_ES6S/" rel="next" title="ES6十大特性">
-                <i class="fa fa-chevron-left"></i> ES6十大特性
+              <a href="/2017/03/03/bingtang-gitUse/" rel="next" title="git的使用">
+                <i class="fa fa-chevron-left"></i> git的使用
               </a>
             
           </div>
@@ -453,8 +454,8 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/17/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/13/bingtang-ten_features_of_ES6S/" rel="prev" title="ES6十大特性">
+                ES6十大特性 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

@@ -419,7 +419,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bingTangGithub.github.io/2017/03/13/bingtang-__proto__&prototype/">
+    <link itemprop="mainEntityOfPage" href="http://bingTangGithub.github.io/2017/03/13/bingtang-asynchronous/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shirley">
@@ -441,8 +441,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/13/bingtang-__proto__&prototype/" itemprop="url">
-                  prototype与__proto__怎么回事
+                <a class="post-title-link" href="/2017/03/13/bingtang-asynchronous/" itemprop="url">
+                  js的单线程与异步
                 </a>
               
             
@@ -481,8 +481,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/继承链/" itemprop="url" rel="index">
-                    <span itemprop="name">继承链</span>
+                  <a href="/categories/异步/" itemprop="url" rel="index">
+                    <span itemprop="name">异步</span>
                   </a>
                 </span>
 
@@ -519,22 +519,57 @@
         
           
             <p>Welcome to <a href="https://bingtanggithub.github.io/">bingTang的博客</a>! If you get any problems when reading, you can send me an email 1569025161@qq.com.</p>
-<h2 id="prototype与-proto"><a href="#prototype与-proto" class="headerlink" title="prototype与__proto__"></a>prototype与<code>__proto__</code></h2><p>【其实只要记住一句话】：对象的<code>__proto__</code>等于创建这个对象的构造函数的prototype</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">var p = new Person();</div><div class="line">alert(p.__proto__ === Person.prototype); //true</div></pre></td></tr></table></figure>
-<p>那么 <code>__proto__</code>是什么呢？</p>
-<p>每个对象都会在其内部初始化一个属性，也就是<code>__proto__</code>，当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去<code>__proto__</code>里找这个属性，这个属性又会有自己的<code>__proto__</code>，于是就这样一直找下去，这就是我们平时所说的原型链的概念。</p>
-<p>下边看一个简单的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">	alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">var p = new Person();</div><div class="line">p.Say();</div></pre></td></tr></table></figure></p>
-<p>首先 var p = new Person(); 于是得到 <code>p.__proto__ = Person.prototype</code>。那么当我们调用 p.say()时，首先p中没有Say这个属性，于是他就需要到它的<code>__proto__</code>中去找，也就是Person.prototype，而我们在上边定义了  Person.prototype.Say=function(){}; 于是，就找到了这个方法。</p>
-<p>看一个<strong>有重量</strong>的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">  alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">Person.prototype.Salary = 50000;</div><div class="line"> </div><div class="line">var Programmer = function () &#123; &#125;;</div><div class="line">Programmer.prototype = new Person();</div><div class="line">Programmer.prototype.WriteCode = function () &#123;</div><div class="line">	alert(&quot;programmer writes code&quot;);</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">Programmer.prototype.Salary = 500;</div><div class="line"> </div><div class="line">var p = new Programmer();</div><div class="line">p.Say();</div><div class="line">p.WriteCode();</div><div class="line">alert(p.Salary);</div></pre></td></tr></table></figure></p>
-<h3 id="好好看看这张图"><a href="#好好看看这张图" class="headerlink" title="好好看看这张图"></a>好好看看这张图</h3><p>附图一张<img src="http://172.16.1.15:8888/files/1489371185286extends.jpg" alt="image"></p>
-<p><code>文字说明</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var p = new Programmer(); 得到 p.__proto__=Programmer.prototype;</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Programmer.prototype=new Person();</div></pre></td></tr></table></figure>
-<p>将上述式子拆开，可以得到以下结论：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var p1=new Person();</div><div class="line">Programmer.prototype=p1;</div><div class="line">//于是由</div><div class="line">p1.__proto__=Person.prototype;</div><div class="line">// 得到</div><div class="line">Programmer.prototype.__proto__=Person.prototype;</div><div class="line">//又由于</div><div class="line">p.__proto__=Programmer.prototype;</div><div class="line">//所以 </div><div class="line">p.__proto__.__proto__=Person.prototype;</div></pre></td></tr></table></figure></p>
-<p><code>好好分析</code> 来看上面的结果,p.Say()。由于p没有Say这个属性，于是去<code>p.__proto__</code>，也就是 Programmer.prototype，也就是p1中去找，由于p1中也没有Say，那就去<code>p.__proto__.__proto__</code>，也就是 <code>Person.prototype中</code>去找，于是就找到了alert(“Person say”)的方法。</p>
-<p>其余的也都是同样的道理。</p>
-<p>这也就是原型链的实现原理。<br>最后，其实prototype只是一个假象，他在实现原型链中只是起到了一个辅助作用，换句话说，他只是在new的时候有着一定的价值，而原型链的本质，其实在于<code>__proto__</code>！</p>
-<p><strong>还是那句话</strong>： 一个对象的<code>__proto__</code>等于创建该对象的构造函数的prototype，然后就像用数学式子推导一下，列出以一堆<code>__proto__</code>链子，一直顺着<code>__proto__</code>链子找下去即可。记住下边的例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">var p = new Person();</div><div class="line">alert(p.__proto__ === Person.prototype); //true</div></pre></td></tr></table></figure>
+<h2 id="1-js的单线程与异步"><a href="#1-js的单线程与异步" class="headerlink" title="1.js的单线程与异步"></a>1.js的单线程与异步</h2><p>Javascript语言的执行环境是”单线程”（single thread）。<br>所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。</p>
+<p>这种模式的好处是实现起来比较简单，执行环境相对单纯；坏处是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段Javascript代码长时间运行（比如死循环），导致整个页面卡在这个地方，其他任务无法执行。<br>为了解决这个问题，Javascript语言将任务的执行模式分成两种：同步（Synchronous）和异步（Asynchronous）。</p>
+<p>“同步模式”就是上一段的模式，后一个任务等待前一个任务结束，然后再执行，程序的执行顺序与任务的排列顺序是一致的、同步的；”异步模式”则完全不同，每一个任务有一个或多个回调函数（callback），前一个任务结束后，不是执行后一个任务，而是执行回调函数，后一个任务则是不等前一个任务结束就执行，所以程序的执行顺序与任务的排列顺序是不一致的、异步的。</p>
+<p>其实，单线程和异步确实不能同时成为一个语言的特性。js选择了成为单线程的语言，所以它本身不可能是异步的，但js的宿主环境（比如浏览器，Node）是多线程的，宿主环境通过某种方式（事件驱动）使得js具备了异步的属性。</p>
+<h2 id="2-javascript的异步编程就是指"><a href="#2-javascript的异步编程就是指" class="headerlink" title="2.javascript的异步编程就是指"></a>2.javascript的异步编程就是指</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 操作。。。</div><div class="line">onxxx = function()&#123;//当发生什么事如(onclick , onmouseover等等。。)</div><div class="line">  // 做什么操作</div><div class="line">&#125;</div><div class="line">// 操作</div></pre></td></tr></table></figure>
+<p>我们要做很多类似这样的监听器，当发生什么事的时候，通知我，我好知道什么时候来做什么事大概就是这样。</p>
+<p><strong>浏览器</strong>为耗时任务开辟了另外的线程，主要包括<strong>http请求线程</strong>，<strong>浏览器定时触发器</strong>，<strong>浏览器事件触发线程</strong>，这些任务是异步的。下图描述了异步的流程<br><img src="http://172.16.1.15:8888/files/1489114133377asynchronous.jpg" alt="image"> 这里waiting queue也就是经常说的 callback queue，excute queue也就是经常说的stack</p>
+<ul>
+<li>说说任务队列</li>
+</ul>
+<p>异步任务完成后，主线程怎么知道呢？答案就是回调函数，整个程序是事件驱动的，每个事件都会绑定相应的回调函数，举个栗子，有段代码设置了一个定时器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setTimeout(function()&#123;</div><div class="line">    console.log(time is out);</div><div class="line">&#125;，50）;</div></pre></td></tr></table></figure></p>
+<p>执行这段代码的时候，<strong>浏览器异步执行计时操作，当50ms到了后，会触发定时事件，这个时候，就会把回调函数放到任务队列里</strong>。整个程序就是通过这样的一个个事件驱动起来的。<br>所以说，js是一直是单线程的，浏览器才是实现异步的那个家伙。</p>
+<ul>
+<li>说说主线程</li>
+</ul>
+<p>js一直在做一个工作，就是从任务队列里提取任务，放到主线程里执行。图中在waiting queue中进行 event loop，然后将任务放入 excute queue中执行。堆（heap）和栈（stack）共同组成了js主线程，函数的执行就是通过进栈和出栈实现的。</p>
+<p>异步就是将代码添加到执行队列末尾。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">console.log(1);</div><div class="line">setTimeout(function()&#123;</div><div class="line">    console.log(2);</div><div class="line">&#125;,0);//注意这里我写了间隔0秒</div><div class="line">console.log(3);</div><div class="line">//如果按照多线程的话，这样写有可能输出123也有可能输出132.但是js的单线程的，将异步代码放到了末尾执行，所以结果一定是132</div></pre></td></tr></table></figure></p>
+<h2 id="3-Javascript异步编程的4种方法"><a href="#3-Javascript异步编程的4种方法" class="headerlink" title="3.Javascript异步编程的4种方法"></a>3.Javascript异步编程的4种方法</h2><p> 如何利用浏览器的异步机制</p>
+<p>我们可以利用浏览器给我们开放的这几个窗口，浏览器定时器线程和事件触发线程是好利用的，网络请求线程不适合我们使用。以下是四种用定时器实现的异步编程</p>
+<ul>
+<li><p>a. 回调函数</p>
+<p>什么是回调函数</p>
+</li>
+</ul>
+<p>在JavaScript中，回调函数具体的定义为：函数A作为参数(函数引用)传递到另一个函数B中，并且这个函数B执行函数A。我们就说<strong>作为参数的函数A叫做回调函数</strong>。如果没有名称(函数表达式)，就叫做匿名回调函数。</p>
+<p>回调函数是一个作为变量传递给另外一个函数的函数，它在主体函数执行完之后执行。</p>
+<p>因此callback 不一定用于异步，一般同步(阻塞)的场景下也经常用到回调，比如要求执行某些操作后执行回调函数。<br>一个同步(阻塞)中使用回调的例子，目的是在func1代码执行完成后执行func2。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var func1=function(callback)&#123;</div><div class="line">  //do something.</div><div class="line">  (callback &amp;&amp; typeof(callback) === &quot;function&quot;) &amp;&amp; callback();</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func1(func2);</div><div class="line">  var func2=function()&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>回调函数，一般在同步情境下是最后执行的，而在异步情境下有可能不执行，因为事件没有被触发或者条件不满足。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">假定有两个函数f1和f2，后者等待前者的执行结果。</div><div class="line">　　f1();</div><div class="line">　　f2();</div><div class="line">如果f1是一个很耗时的任务，可以考虑改写f1，把f2写成f1的回调函数。</div><div class="line">　　function f1(callback)&#123;</div><div class="line">　　　　setTimeout(function () &#123;</div><div class="line">　　　　　　// f1的任务代码</div><div class="line">　　　　　　callback();</div><div class="line">　　　　&#125;, 1000);</div><div class="line">　　&#125;</div><div class="line">执行代码就变成下面这样：</div><div class="line">　f1(f2);</div></pre></td></tr></table></figure></p>
+<p>采用这种方式，我们把同步操作变成了异步操作，f1不会堵塞程序运行，相当于先执行程序的主要逻辑，将耗时的操作推迟执行。</p>
+<p>js代码会至上而下一条线执行下去，但是有时候我们需要等到一个操作结束之后再进行下一个操作，这时候就需要用到回调函数。</p>
+<ul>
+<li>b. 事件监听</li>
+</ul>
+<p>另一种思路是采用事件驱动模式。任务的执行不取决于代码的顺序，而取决于某个事件是否发生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">还是以f1和f2为例。首先，为f1绑定一个事件（这里采用的jQuery的写法）。</div><div class="line">　　f1.on(&apos;done&apos;, f2);</div></pre></td></tr></table></figure></p>
+<p>上面这行代码的意思是，当f1发生done事件，就执行f2。然后，对f1进行改写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f1()&#123;</div><div class="line">　　setTimeout(function () &#123;</div><div class="line">　　　　// f1的任务代码</div><div class="line">　　　　　f1.trigger(&apos;done&apos;);</div><div class="line">　　&#125;, 1000);</div><div class="line">&#125;</div><div class="line">f1.trigger(&apos;done&apos;)表示，执行完成后，立即触发done事件，从而开始执行f2。</div></pre></td></tr></table></figure></p>
+<p>当调用的时候，报错：f1没有on方法，为此，为函数添加on方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var eventMap = &#123;&#125;;</div><div class="line">Function.prototype.on = function (eventName, callback) &#123;</div><div class="line">	if (!eventMap[eventName]) &#123;</div><div class="line">		eventMap[eventName] = [];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	eventMap[eventName].push(callback);</div><div class="line"></div><div class="line">	console.log(&apos;callback has been binded&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>c. 发布/订阅</li>
+</ul>
+<p>我们假定，存在一个”信号中心”，某个任务执行完成，就向信号中心”发布”（publish）一个信号，其他任务可以向信号中心”订阅”（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做”发布/订阅模式”（publish-subscribe pattern），又称”++观察者模式++”（observer pattern）。</p>
+<p>这个模式有多种实现，下面采用的是Ben Alman的Tiny Pub/Sub，这是jQuery的一个插件。<br>首先，f2向”信号中心”jQuery订阅”done”信号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jQuery.subscribe(&quot;done&quot;, f2);</div></pre></td></tr></table></figure></p>
+<p>然后，f1进行如下改写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　function f1()&#123;</div><div class="line">　　　setTimeout(function () &#123;</div><div class="line">　　　　　// f1的任务代码</div><div class="line">　　　　　　jQuery.publish(&quot;done&quot;);</div><div class="line">　　　&#125;, 1000);</div><div class="line">　&#125;</div></pre></td></tr></table></figure></p>
+<p>jQuery.publish(“done”)的意思是，f1执行完成后，向”信号中心”jQuery发布”done”信号，从而引发f2的执行。<br>此外，f2完成执行后，也可以取消订阅（unsubscribe）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jQuery.unsubscribe(&quot;done&quot;, f2);</div></pre></td></tr></table></figure></p>
+<ul>
+<li>d. Promises对象</li>
+</ul>
+<p>简单说，它的思想是，每一个异步任务返回一个Promise对象，该对象有一个then方法，允许指定回调函数。比如，f1的回调函数f2,可以写成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f1().then(f2);</div></pre></td></tr></table></figure></p>
+<p>f1要进行如下改写（这里使用的是jQuery的实现）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">　　function f1()&#123;</div><div class="line">　　　　var dfd = $.Deferred();</div><div class="line">　　　　setTimeout(function () &#123;</div><div class="line">　　　　　　// f1的任务代码</div><div class="line">　　　　　　dfd.resolve();</div><div class="line">　　　　&#125;, 500);</div><div class="line">　　　　return dfd.promise;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
+<p>这样写的优点在于，回调函数变成了链式写法，程序的流程可以看得很清楚，而且有一整套的配套方法，可以实现许多强大的功能。<br>比如，指定多个回调函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">　　f1().then(f2).then(f3);</div><div class="line">再比如，指定发生错误时的回调函数：</div><div class="line">　　f1().then(f2).fail(f3);</div></pre></td></tr></table></figure></p>
+<p>而且，它还有一个前面三种方法都没有的好处：如果一个任务已经完成，再添加回调函数，该回调函数会立即执行。所以，你不用担心是否错过了某个事件或信号。这种方法的缺点就是编写和理解，都相对比较难。</p>
+
           
         
       
@@ -806,7 +841,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://bingTangGithub.github.io/2017/03/13/bingtang-asynchronous/">
+    <link itemprop="mainEntityOfPage" href="http://bingTangGithub.github.io/2017/03/13/bingtang-__proto__&prototype/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shirley">
@@ -828,8 +863,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/13/bingtang-asynchronous/" itemprop="url">
-                  js的单线程与异步
+                <a class="post-title-link" href="/2017/03/13/bingtang-__proto__&prototype/" itemprop="url">
+                  prototype与__proto__怎么回事
                 </a>
               
             
@@ -868,8 +903,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/异步/" itemprop="url" rel="index">
-                    <span itemprop="name">异步</span>
+                  <a href="/categories/继承链/" itemprop="url" rel="index">
+                    <span itemprop="name">继承链</span>
                   </a>
                 </span>
 
@@ -906,57 +941,22 @@
         
           
             <p>Welcome to <a href="https://bingtanggithub.github.io/">bingTang的博客</a>! If you get any problems when reading, you can send me an email 1569025161@qq.com.</p>
-<h2 id="1-js的单线程与异步"><a href="#1-js的单线程与异步" class="headerlink" title="1.js的单线程与异步"></a>1.js的单线程与异步</h2><p>Javascript语言的执行环境是”单线程”（single thread）。<br>所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。</p>
-<p>这种模式的好处是实现起来比较简单，执行环境相对单纯；坏处是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段Javascript代码长时间运行（比如死循环），导致整个页面卡在这个地方，其他任务无法执行。<br>为了解决这个问题，Javascript语言将任务的执行模式分成两种：同步（Synchronous）和异步（Asynchronous）。</p>
-<p>“同步模式”就是上一段的模式，后一个任务等待前一个任务结束，然后再执行，程序的执行顺序与任务的排列顺序是一致的、同步的；”异步模式”则完全不同，每一个任务有一个或多个回调函数（callback），前一个任务结束后，不是执行后一个任务，而是执行回调函数，后一个任务则是不等前一个任务结束就执行，所以程序的执行顺序与任务的排列顺序是不一致的、异步的。</p>
-<p>其实，单线程和异步确实不能同时成为一个语言的特性。js选择了成为单线程的语言，所以它本身不可能是异步的，但js的宿主环境（比如浏览器，Node）是多线程的，宿主环境通过某种方式（事件驱动）使得js具备了异步的属性。</p>
-<h2 id="2-javascript的异步编程就是指"><a href="#2-javascript的异步编程就是指" class="headerlink" title="2.javascript的异步编程就是指"></a>2.javascript的异步编程就是指</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 操作。。。</div><div class="line">onxxx = function()&#123;//当发生什么事如(onclick , onmouseover等等。。)</div><div class="line">  // 做什么操作</div><div class="line">&#125;</div><div class="line">// 操作</div></pre></td></tr></table></figure>
-<p>我们要做很多类似这样的监听器，当发生什么事的时候，通知我，我好知道什么时候来做什么事大概就是这样。</p>
-<p><strong>浏览器</strong>为耗时任务开辟了另外的线程，主要包括<strong>http请求线程</strong>，<strong>浏览器定时触发器</strong>，<strong>浏览器事件触发线程</strong>，这些任务是异步的。下图描述了异步的流程<br><img src="http://172.16.1.15:8888/files/1489114133377asynchronous.jpg" alt="image"> 这里waiting queue也就是经常说的 callback queue，excute queue也就是经常说的stack</p>
-<ul>
-<li>说说任务队列</li>
-</ul>
-<p>异步任务完成后，主线程怎么知道呢？答案就是回调函数，整个程序是事件驱动的，每个事件都会绑定相应的回调函数，举个栗子，有段代码设置了一个定时器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setTimeout(function()&#123;</div><div class="line">    console.log(time is out);</div><div class="line">&#125;，50）;</div></pre></td></tr></table></figure></p>
-<p>执行这段代码的时候，<strong>浏览器异步执行计时操作，当50ms到了后，会触发定时事件，这个时候，就会把回调函数放到任务队列里</strong>。整个程序就是通过这样的一个个事件驱动起来的。<br>所以说，js是一直是单线程的，浏览器才是实现异步的那个家伙。</p>
-<ul>
-<li>说说主线程</li>
-</ul>
-<p>js一直在做一个工作，就是从任务队列里提取任务，放到主线程里执行。图中在waiting queue中进行 event loop，然后将任务放入 excute queue中执行。堆（heap）和栈（stack）共同组成了js主线程，函数的执行就是通过进栈和出栈实现的。</p>
-<p>异步就是将代码添加到执行队列末尾。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">console.log(1);</div><div class="line">setTimeout(function()&#123;</div><div class="line">    console.log(2);</div><div class="line">&#125;,0);//注意这里我写了间隔0秒</div><div class="line">console.log(3);</div><div class="line">//如果按照多线程的话，这样写有可能输出123也有可能输出132.但是js的单线程的，将异步代码放到了末尾执行，所以结果一定是132</div></pre></td></tr></table></figure></p>
-<h2 id="3-Javascript异步编程的4种方法"><a href="#3-Javascript异步编程的4种方法" class="headerlink" title="3.Javascript异步编程的4种方法"></a>3.Javascript异步编程的4种方法</h2><p> 如何利用浏览器的异步机制</p>
-<p>我们可以利用浏览器给我们开放的这几个窗口，浏览器定时器线程和事件触发线程是好利用的，网络请求线程不适合我们使用。以下是四种用定时器实现的异步编程</p>
-<ul>
-<li><p>a. 回调函数</p>
-<p>什么是回调函数</p>
-</li>
-</ul>
-<p>在JavaScript中，回调函数具体的定义为：函数A作为参数(函数引用)传递到另一个函数B中，并且这个函数B执行函数A。我们就说<strong>作为参数的函数A叫做回调函数</strong>。如果没有名称(函数表达式)，就叫做匿名回调函数。</p>
-<p>回调函数是一个作为变量传递给另外一个函数的函数，它在主体函数执行完之后执行。</p>
-<p>因此callback 不一定用于异步，一般同步(阻塞)的场景下也经常用到回调，比如要求执行某些操作后执行回调函数。<br>一个同步(阻塞)中使用回调的例子，目的是在func1代码执行完成后执行func2。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var func1=function(callback)&#123;</div><div class="line">  //do something.</div><div class="line">  (callback &amp;&amp; typeof(callback) === &quot;function&quot;) &amp;&amp; callback();</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func1(func2);</div><div class="line">  var func2=function()&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>回调函数，一般在同步情境下是最后执行的，而在异步情境下有可能不执行，因为事件没有被触发或者条件不满足。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">假定有两个函数f1和f2，后者等待前者的执行结果。</div><div class="line">　　f1();</div><div class="line">　　f2();</div><div class="line">如果f1是一个很耗时的任务，可以考虑改写f1，把f2写成f1的回调函数。</div><div class="line">　　function f1(callback)&#123;</div><div class="line">　　　　setTimeout(function () &#123;</div><div class="line">　　　　　　// f1的任务代码</div><div class="line">　　　　　　callback();</div><div class="line">　　　　&#125;, 1000);</div><div class="line">　　&#125;</div><div class="line">执行代码就变成下面这样：</div><div class="line">　f1(f2);</div></pre></td></tr></table></figure></p>
-<p>采用这种方式，我们把同步操作变成了异步操作，f1不会堵塞程序运行，相当于先执行程序的主要逻辑，将耗时的操作推迟执行。</p>
-<p>js代码会至上而下一条线执行下去，但是有时候我们需要等到一个操作结束之后再进行下一个操作，这时候就需要用到回调函数。</p>
-<ul>
-<li>b. 事件监听</li>
-</ul>
-<p>另一种思路是采用事件驱动模式。任务的执行不取决于代码的顺序，而取决于某个事件是否发生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">还是以f1和f2为例。首先，为f1绑定一个事件（这里采用的jQuery的写法）。</div><div class="line">　　f1.on(&apos;done&apos;, f2);</div></pre></td></tr></table></figure></p>
-<p>上面这行代码的意思是，当f1发生done事件，就执行f2。然后，对f1进行改写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f1()&#123;</div><div class="line">　　setTimeout(function () &#123;</div><div class="line">　　　　// f1的任务代码</div><div class="line">　　　　　f1.trigger(&apos;done&apos;);</div><div class="line">　　&#125;, 1000);</div><div class="line">&#125;</div><div class="line">f1.trigger(&apos;done&apos;)表示，执行完成后，立即触发done事件，从而开始执行f2。</div></pre></td></tr></table></figure></p>
-<p>当调用的时候，报错：f1没有on方法，为此，为函数添加on方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var eventMap = &#123;&#125;;</div><div class="line">Function.prototype.on = function (eventName, callback) &#123;</div><div class="line">	if (!eventMap[eventName]) &#123;</div><div class="line">		eventMap[eventName] = [];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	eventMap[eventName].push(callback);</div><div class="line"></div><div class="line">	console.log(&apos;callback has been binded&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>c. 发布/订阅</li>
-</ul>
-<p>我们假定，存在一个”信号中心”，某个任务执行完成，就向信号中心”发布”（publish）一个信号，其他任务可以向信号中心”订阅”（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做”发布/订阅模式”（publish-subscribe pattern），又称”++观察者模式++”（observer pattern）。</p>
-<p>这个模式有多种实现，下面采用的是Ben Alman的Tiny Pub/Sub，这是jQuery的一个插件。<br>首先，f2向”信号中心”jQuery订阅”done”信号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jQuery.subscribe(&quot;done&quot;, f2);</div></pre></td></tr></table></figure></p>
-<p>然后，f1进行如下改写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　function f1()&#123;</div><div class="line">　　　setTimeout(function () &#123;</div><div class="line">　　　　　// f1的任务代码</div><div class="line">　　　　　　jQuery.publish(&quot;done&quot;);</div><div class="line">　　　&#125;, 1000);</div><div class="line">　&#125;</div></pre></td></tr></table></figure></p>
-<p>jQuery.publish(“done”)的意思是，f1执行完成后，向”信号中心”jQuery发布”done”信号，从而引发f2的执行。<br>此外，f2完成执行后，也可以取消订阅（unsubscribe）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jQuery.unsubscribe(&quot;done&quot;, f2);</div></pre></td></tr></table></figure></p>
-<ul>
-<li>d. Promises对象</li>
-</ul>
-<p>简单说，它的思想是，每一个异步任务返回一个Promise对象，该对象有一个then方法，允许指定回调函数。比如，f1的回调函数f2,可以写成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f1().then(f2);</div></pre></td></tr></table></figure></p>
-<p>f1要进行如下改写（这里使用的是jQuery的实现）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">　　function f1()&#123;</div><div class="line">　　　　var dfd = $.Deferred();</div><div class="line">　　　　setTimeout(function () &#123;</div><div class="line">　　　　　　// f1的任务代码</div><div class="line">　　　　　　dfd.resolve();</div><div class="line">　　　　&#125;, 500);</div><div class="line">　　　　return dfd.promise;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
-<p>这样写的优点在于，回调函数变成了链式写法，程序的流程可以看得很清楚，而且有一整套的配套方法，可以实现许多强大的功能。<br>比如，指定多个回调函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">　　f1().then(f2).then(f3);</div><div class="line">再比如，指定发生错误时的回调函数：</div><div class="line">　　f1().then(f2).fail(f3);</div></pre></td></tr></table></figure></p>
-<p>而且，它还有一个前面三种方法都没有的好处：如果一个任务已经完成，再添加回调函数，该回调函数会立即执行。所以，你不用担心是否错过了某个事件或信号。这种方法的缺点就是编写和理解，都相对比较难。</p>
-
+<h2 id="prototype与-proto"><a href="#prototype与-proto" class="headerlink" title="prototype与__proto__"></a>prototype与<code>__proto__</code></h2><p>【其实只要记住一句话】：对象的<code>__proto__</code>等于创建这个对象的构造函数的prototype</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">var p = new Person();</div><div class="line">alert(p.__proto__ === Person.prototype); //true</div></pre></td></tr></table></figure>
+<p>那么 <code>__proto__</code>是什么呢？</p>
+<p>每个对象都会在其内部初始化一个属性，也就是<code>__proto__</code>，当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去<code>__proto__</code>里找这个属性，这个属性又会有自己的<code>__proto__</code>，于是就这样一直找下去，这就是我们平时所说的原型链的概念。</p>
+<p>下边看一个简单的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">	alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">var p = new Person();</div><div class="line">p.Say();</div></pre></td></tr></table></figure></p>
+<p>首先 var p = new Person(); 于是得到 <code>p.__proto__ = Person.prototype</code>。那么当我们调用 p.say()时，首先p中没有Say这个属性，于是他就需要到它的<code>__proto__</code>中去找，也就是Person.prototype，而我们在上边定义了  Person.prototype.Say=function(){}; 于是，就找到了这个方法。</p>
+<p>看一个<strong>有重量</strong>的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">  alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">Person.prototype.Salary = 50000;</div><div class="line"> </div><div class="line">var Programmer = function () &#123; &#125;;</div><div class="line">Programmer.prototype = new Person();</div><div class="line">Programmer.prototype.WriteCode = function () &#123;</div><div class="line">	alert(&quot;programmer writes code&quot;);</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">Programmer.prototype.Salary = 500;</div><div class="line"> </div><div class="line">var p = new Programmer();</div><div class="line">p.Say();</div><div class="line">p.WriteCode();</div><div class="line">alert(p.Salary);</div></pre></td></tr></table></figure></p>
+<h3 id="好好看看这张图"><a href="#好好看看这张图" class="headerlink" title="好好看看这张图"></a>好好看看这张图</h3><p>附图一张<img src="http://172.16.1.15:8888/files/1489371185286extends.jpg" alt="image"><br><img src="/2017/03/13/bingtang-__proto__&prototype/img/extends.png" alt="img"></p>
+<p><code>文字说明</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var p = new Programmer(); 得到 p.__proto__=Programmer.prototype;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Programmer.prototype=new Person();</div></pre></td></tr></table></figure>
+<p>将上述式子拆开，可以得到以下结论：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var p1=new Person();</div><div class="line">Programmer.prototype=p1;</div><div class="line">//于是由</div><div class="line">p1.__proto__=Person.prototype;</div><div class="line">// 得到</div><div class="line">Programmer.prototype.__proto__=Person.prototype;</div><div class="line">//又由于</div><div class="line">p.__proto__=Programmer.prototype;</div><div class="line">//所以 </div><div class="line">p.__proto__.__proto__=Person.prototype;</div></pre></td></tr></table></figure></p>
+<p><code>好好分析</code> 来看上面的结果,p.Say()。由于p没有Say这个属性，于是去<code>p.__proto__</code>，也就是 Programmer.prototype，也就是p1中去找，由于p1中也没有Say，那就去<code>p.__proto__.__proto__</code>，也就是 <code>Person.prototype中</code>去找，于是就找到了alert(“Person say”)的方法。</p>
+<p>其余的也都是同样的道理。</p>
+<p>这也就是原型链的实现原理。<br>最后，其实prototype只是一个假象，他在实现原型链中只是起到了一个辅助作用，换句话说，他只是在new的时候有着一定的价值，而原型链的本质，其实在于<code>__proto__</code>！</p>
+<p><strong>还是那句话</strong>： 一个对象的<code>__proto__</code>等于创建该对象的构造函数的prototype，然后就像用数学式子推导一下，列出以一堆<code>__proto__</code>链子，一直顺着<code>__proto__</code>链子找下去即可。记住下边的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">var p = new Person();</div><div class="line">alert(p.__proto__ === Person.prototype); //true</div></pre></td></tr></table></figure>
           
         
       
