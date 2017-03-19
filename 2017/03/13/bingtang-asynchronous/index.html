@@ -96,7 +96,7 @@
 <meta property="og:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
 1.js的单线程与异步Javascript语言的执行环境是”单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成">
 <meta property="og:image" content="http://172.16.1.15:8888/files/1489114133377asynchronous.jpg">
-<meta property="og:updated_time" content="2017-03-19T03:00:10.189Z">
+<meta property="og:updated_time" content="2017-03-19T03:11:33.950Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js的单线程与异步">
 <meta name="twitter:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
@@ -353,8 +353,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/继承/" itemprop="url" rel="index">
-                    <span itemprop="name">继承</span>
+                  <a href="/categories/异步/" itemprop="url" rel="index">
+                    <span itemprop="name">异步</span>
                   </a>
                 </span>
 
@@ -413,7 +413,7 @@
 <p>什么是回调函数</p>
 </li>
 </ul>
-<p>在JavaScript中，回调函数具体的定义为：函数A作为参数(函数引用)传递到另一个函数B中，并且这个函数B执行函数A。我们就说++作为参数的函数A++叫做回调函数。如果没有名称(函数表达式)，就叫做匿名回调函数。</p>
+<p>在JavaScript中，回调函数具体的定义为：函数A作为参数(函数引用)传递到另一个函数B中，并且这个函数B执行函数A。我们就说<strong>作为参数的函数A叫做回调函数</strong>。如果没有名称(函数表达式)，就叫做匿名回调函数。</p>
 <p>回调函数是一个作为变量传递给另外一个函数的函数，它在主体函数执行完之后执行。</p>
 <p>因此callback 不一定用于异步，一般同步(阻塞)的场景下也经常用到回调，比如要求执行某些操作后执行回调函数。<br>一个同步(阻塞)中使用回调的例子，目的是在func1代码执行完成后执行func2。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var func1=function(callback)&#123;</div><div class="line">  //do something.</div><div class="line">  (callback &amp;&amp; typeof(callback) === &quot;function&quot;) &amp;&amp; callback();</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func1(func2);</div><div class="line">  var func2=function()&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>回调函数，一般在同步情境下是最后执行的，而在异步情境下有可能不执行，因为事件没有被触发或者条件不满足。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">假定有两个函数f1和f2，后者等待前者的执行结果。</div><div class="line">　　f1();</div><div class="line">　　f2();</div><div class="line">如果f1是一个很耗时的任务，可以考虑改写f1，把f2写成f1的回调函数。</div><div class="line">　　function f1(callback)&#123;</div><div class="line">　　　　setTimeout(function () &#123;</div><div class="line">　　　　　　// f1的任务代码</div><div class="line">　　　　　　callback();</div><div class="line">　　　　&#125;, 1000);</div><div class="line">　　&#125;</div><div class="line">执行代码就变成下面这样：</div><div class="line">　f1(f2);</div></pre></td></tr></table></figure></p>
@@ -475,8 +475,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/03/bingtang-gitUse/" rel="next" title="git的使用">
-                <i class="fa fa-chevron-left"></i> git的使用
+              <a href="/2017/03/13/bingtang-ten_features_of_ES6S/" rel="next" title="ES6十大特性">
+                <i class="fa fa-chevron-left"></i> ES6十大特性
               </a>
             
           </div>
