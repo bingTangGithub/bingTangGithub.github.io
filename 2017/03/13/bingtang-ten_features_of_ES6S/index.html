@@ -103,7 +103,7 @@ Mul">
 Default Parameters（默认参数） in ES6
 Template Literals （模板文本）in ES6
 Mul">
-<meta property="og:updated_time" content="2017-03-19T03:11:17.630Z">
+<meta property="og:updated_time" content="2017-03-19T03:21:22.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6十大特性">
 <meta name="twitter:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
@@ -415,7 +415,7 @@ Mul">
 <p>【备注 】这里只列出了10条比较常用的特性。并不是所有的浏览器都支持ES6模块，所以你需要使用一些像jspm去支持ES6模块。</p>
 <h2 id="1-Default-Parameters（默认参数）"><a href="#1-Default-Parameters（默认参数）" class="headerlink" title="1.Default Parameters（默认参数）"></a>1.Default Parameters（默认参数）</h2><p>ES5：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var link = function (height, color, url) &#123;  </div><div class="line">    var height = height || 50;  </div><div class="line">    var color = color || &apos;red&apos;;  </div><div class="line">    var url = url || &apos;http://azat.co&apos;;  </div><div class="line">    ...  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>ES6：直接写在参数里<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var link = function(height = 50, color = &apos;red&apos;, url = &apos;http://azat.co&apos;) &#123;  </div><div class="line">  ...  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><code>好处</code> 节省了代码量。</p>
+<p><code>好处</code>: 节省了代码量。</p>
 <h2 id="2-Template-Literals（模板对象）"><a href="#2-Template-Literals（模板对象）" class="headerlink" title="2.Template Literals（模板对象）"></a>2.Template Literals（模板对象）</h2><p>在字符串里面输出变量</p>
 <p>ES5：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var name = &apos;Your name is &apos; + first + &apos; &apos; + last + &apos;.&apos;;  </div><div class="line">var url = &apos;http://localhost:3000/api/messages/&apos; + id;</div></pre></td></tr></table></figure></p>
 <p>ES6：，使用新的语法 <code>$ {NAME}</code>，并把它放在反引号里：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var name = &apos;Your name is $&#123;first&#125; $&#123;last&#125;.&apos;;</div><div class="line">var url = &apos;http://loalhost:3000/api/messages/$&#123;id&#125;&apos;;</div></pre></td></tr></table></figure></p>
