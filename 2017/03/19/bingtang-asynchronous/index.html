@@ -87,20 +87,20 @@
 
 
 
-<meta name="description" content="1.js的单线程与异步Javascript语言的执行环境是”单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。
-这种模式的好处是实现起来比较简单，执行环境相对单纯；坏处是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段">
+<meta name="description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
+1.js的单线程与异步Javascript语言的执行环境是”单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bingTang的博客">
+<meta property="og:title" content="js的单线程与异步">
 <meta property="og:url" content="http://bingTangGithub.github.io/2017/03/19/bingtang-asynchronous/index.html">
 <meta property="og:site_name" content="bingTang的博客">
-<meta property="og:description" content="1.js的单线程与异步Javascript语言的执行环境是”单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。
-这种模式的好处是实现起来比较简单，执行环境相对单纯；坏处是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段">
+<meta property="og:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
+1.js的单线程与异步Javascript语言的执行环境是”单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成">
 <meta property="og:image" content="http://172.16.1.15:8888/files/1489114133377asynchronous.jpg">
-<meta property="og:updated_time" content="2017-03-10T04:44:38.929Z">
+<meta property="og:updated_time" content="2017-03-19T02:45:06.716Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bingTang的博客">
-<meta name="twitter:description" content="1.js的单线程与异步Javascript语言的执行环境是”单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。
-这种模式的好处是实现起来比较简单，执行环境相对单纯；坏处是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段">
+<meta name="twitter:title" content="js的单线程与异步">
+<meta name="twitter:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
+1.js的单线程与异步Javascript语言的执行环境是”单线程”（single thread）。所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成">
 <meta name="twitter:image" content="http://172.16.1.15:8888/files/1489114133377asynchronous.jpg">
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <title>  | bingTang的博客 </title>
+  <title> js的单线程与异步 | bingTang的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -315,7 +315,7 @@
             
             
               
-                
+                js的单线程与异步
               
             
           </h1>
@@ -366,15 +366,7 @@
       
 
       
-        <!--
-author: 冰糖-王雪丽
-date: 2017-03-10
-title: js的异步编程
-tags: 单线程与异步
-category: 前端 
-status: publish 
-summary: js的单线程与异步。
--->
+        <p>Welcome to <a href="https://bingtanggithub.github.io/">bingTang的博客</a>! If you get any problems when reading, you can send me an email 1569025161@qq.com.</p>
 <h2 id="1-js的单线程与异步"><a href="#1-js的单线程与异步" class="headerlink" title="1.js的单线程与异步"></a>1.js的单线程与异步</h2><p>Javascript语言的执行环境是”单线程”（single thread）。<br>所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。</p>
 <p>这种模式的好处是实现起来比较简单，执行环境相对单纯；坏处是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段Javascript代码长时间运行（比如死循环），导致整个页面卡在这个地方，其他任务无法执行。<br>为了解决这个问题，Javascript语言将任务的执行模式分成两种：同步（Synchronous）和异步（Asynchronous）。</p>
 <p>“同步模式”就是上一段的模式，后一个任务等待前一个任务结束，然后再执行，程序的执行顺序与任务的排列顺序是一致的、同步的；”异步模式”则完全不同，每一个任务有一个或多个回调函数（callback），前一个任务结束后，不是执行后一个任务，而是执行回调函数，后一个任务则是不等前一个任务结束就执行，所以程序的执行顺序与任务的排列顺序是不一致的、异步的。</p>
@@ -461,8 +453,8 @@ summary: js的单线程与异步。
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/19/bingtang-__proto__&prototype/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2017/03/19/bingtang-ten_features_of_ES6S/" rel="next" title="ES6十大特性">
+                <i class="fa fa-chevron-left"></i> ES6十大特性
               </a>
             
           </div>
