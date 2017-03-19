@@ -419,6 +419,161 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://bingTangGithub.github.io/2017/03/13/bingtang-__proto__&prototype/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shirley">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bingTang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/13/bingtang-__proto__&prototype/" itemprop="url">
+                  继承中的prototype属性
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-13T00:00:00+08:00">
+                2017-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/继承/" itemprop="url" rel="index">
+                    <span itemprop="name">继承</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Welcome to <a href="https://bingtanggithub.github.io/">bingTang的博客</a>! If you get any problems when reading, you can send me an email 1569025161@qq.com.</p>
+<p>##　js中的原型链，<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">其实只要记住一句话：**对象的`__proto__`等于创建这个对象的构造函数的`prototype`**</div></pre></td></tr></table></figure></p>
+<p>var Person = function () { };<br>var p = new Person();<br>alert(p.<strong>proto</strong> === Person.prototype); //true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">那么 ```__proto__```是什么呢？</div><div class="line"></div><div class="line">每个对象都会在其内部初始化一个属性，也就是```__proto__```，当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去```__proto__ ```里找这个属性，这个属性又会有自己的```__proto__```，于是就这样一直找下去，这就是我们平时所说的原型链的概念。</div><div class="line"></div><div class="line">下边看一个简单的例子</div></pre></td></tr></table></figure></p>
+<p>var Person = function () { };<br>Person.prototype.Say = function () {<br>    alert(“Person say”);<br>}<br>var p = new Person();<br>p.Say();</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">首先 var p = new Person(); 于是得到 ```p.__proto__ = Person.prototype```。那么当我们调用 p.say()时，首先p中没有Say这个属性，于是他就需要到它的```__proto__```中去找，也就是Person.prototype，而我们在上边定义了  Person.prototype.Say=function()&#123;&#125;; 于是，就找到了这个方法。</div><div class="line"></div><div class="line">看一个**有重量**的例子：</div></pre></td></tr></table></figure>
+<p>var Person = function () { };<br>Person.prototype.Say = function () {<br>  alert(“Person say”);<br>}<br>Person.prototype.Salary = 50000;</p>
+<p>var Programmer = function () { };<br>Programmer.prototype = new Person();<br>Programmer.prototype.WriteCode = function () {<br>    alert(“programmer writes code”);<br>};</p>
+<p>Programmer.prototype.Salary = 500;</p>
+<p>var p = new Programmer();<br>p.Say();<br>p.WriteCode();<br>alert(p.Salary);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">###   好好看看这张图</div><div class="line">附图一张![image](http://172.16.1.15:8888/files/1489371185286extends.jpg)</div><div class="line"></div><div class="line">`文字说明`:</div></pre></td></tr></table></figure></p>
+<p>var p = new Programmer(); 得到 p.<strong>proto</strong>=Programmer.prototype;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">Programmer.prototype=new Person();</div></pre></td></tr></table></figure></p>
+<p>将上述式子拆开，可以得到以下结论：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var p1=new Person();</div><div class="line">Programmer.prototype=p1;</div><div class="line">//于是由</div><div class="line">p1.__proto__=Person.prototype;</div><div class="line">// 得到</div><div class="line">Programmer.prototype.__proto__=Person.prototype;</div><div class="line">//又由于</div><div class="line">p.__proto__=Programmer.prototype;</div><div class="line">//所以 </div><div class="line">p.__proto__.__proto__=Person.prototype;</div></pre></td></tr></table></figure></p>
+<p><code>好好分析</code> 来看上面的结果,p.Say()。由于p没有Say这个属性，于是去<figure class="highlight plain"><figcaption><span>Programmer.prototype，也就是p1中去找，由于p1中也没有Say，那就去```p.__proto__.__proto__```，也就是 ```Person.prototype中```去找，于是就找到了alert(“Person say”)的方法。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">其余的也都是同样的道理。</div><div class="line"></div><div class="line">这也就是原型链的实现原理。</div><div class="line">最后，其实prototype只是一个假象，他在实现原型链中只是起到了一个辅助作用，换句话说，他只是在new的时候有着一定的价值，而原型链的本质，其实在于```__proto__```！</div><div class="line"></div><div class="line"></div><div class="line">**还是那句话**： 一个对象的```__proto__```等于创建该对象的构造函数的prototype，然后就像用数学式子推导一下，列出以一堆```__proto__```链子，一直顺着```__proto__```链子找下去即可。记住下边的例子</div></pre></td></tr></table></figure></p>
+<p>var Person = function () { };<br>var p = new Person();<br>alert(p.<strong>proto</strong> === Person.prototype); //true<br>```</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://bingTangGithub.github.io/2017/03/13/bingtang-asynchronous/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1087,7 +1242,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/归档">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1098,7 +1253,7 @@
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
