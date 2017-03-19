@@ -97,12 +97,14 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
 <meta property="og:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
 prototype与__proto__【其实只要记住一句话】：对象的__proto__等于创建这个对象的构造函数的prototype
 123var Person = function ()">
-<meta property="og:updated_time" content="2017-03-19T03:45:38.415Z">
+<meta property="og:image" content="http://172.16.1.15:8888/files/1489371185286extends.jpg">
+<meta property="og:updated_time" content="2017-03-19T03:47:41.568Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="prototype与__proto__怎么回事">
 <meta name="twitter:description" content="Welcome to bingTang的博客! If you get any problems when reading, you can send me an email 1569025161@qq.com.
 prototype与__proto__【其实只要记住一句话】：对象的__proto__等于创建这个对象的构造函数的prototype
 123var Person = function ()">
+<meta name="twitter:image" content="http://172.16.1.15:8888/files/1489371185286extends.jpg">
 
 
 
@@ -395,16 +397,17 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
 <p>那么 <code>__proto__</code>是什么呢？</p>
 <p>每个对象都会在其内部初始化一个属性，也就是<code>__proto__</code>，当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去<code>__proto__</code>里找这个属性，这个属性又会有自己的<code>__proto__</code>，于是就这样一直找下去，这就是我们平时所说的原型链的概念。</p>
 <p>下边看一个简单的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">	alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">var p = new Person();</div><div class="line">p.Say();</div></pre></td></tr></table></figure></p>
-<p>首先 var p = new Person(); 于是得到 <figure class="highlight plain"><figcaption><span>= Person.prototype```。那么当我们调用 p.say()时，首先p中没有Say这个属性，于是他就需要到它的```__proto__```中去找，也就是Person.prototype，而我们在上边定义了  Person.prototype.Say=function()&#123;&#125;; 于是，就找到了这个方法。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">看一个**有重量**的例子：</div></pre></td></tr></table></figure></p>
-<p>var Person = function () { };<br>Person.prototype.Say = function () {<br>  alert(“Person say”);<br>}<br>Person.prototype.Salary = 50000;</p>
-<p>var Programmer = function () { };<br>Programmer.prototype = new Person();<br>Programmer.prototype.WriteCode = function () {<br>    alert(“programmer writes code”);<br>};</p>
-<p>Programmer.prototype.Salary = 500;</p>
-<p>var p = new Programmer();<br>p.Say();<br>p.WriteCode();<br>alert(p.Salary);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">###   好好看看这张图</div><div class="line">附图一张![image](http://172.16.1.15:8888/files/1489371185286extends.jpg)</div><div class="line"></div><div class="line">`文字说明`:</div></pre></td></tr></table></figure></p>
-<p>var p = new Programmer(); 得到 p.<strong>proto</strong>=Programmer.prototype;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">Programmer.prototype=new Person();</div></pre></td></tr></table></figure></p>
+<p>首先 var p = new Person(); 于是得到 <code>p.__proto__ = Person.prototype</code>。那么当我们调用 p.say()时，首先p中没有Say这个属性，于是他就需要到它的<code>__proto__</code>中去找，也就是Person.prototype，而我们在上边定义了  Person.prototype.Say=function(){}; 于是，就找到了这个方法。</p>
+<p>看一个<strong>有重量</strong>的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">Person.prototype.Say = function () &#123;</div><div class="line">  alert(&quot;Person say&quot;);</div><div class="line">&#125;</div><div class="line">Person.prototype.Salary = 50000;</div><div class="line"> </div><div class="line">var Programmer = function () &#123; &#125;;</div><div class="line">Programmer.prototype = new Person();</div><div class="line">Programmer.prototype.WriteCode = function () &#123;</div><div class="line">	alert(&quot;programmer writes code&quot;);</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">Programmer.prototype.Salary = 500;</div><div class="line"> </div><div class="line">var p = new Programmer();</div><div class="line">p.Say();</div><div class="line">p.WriteCode();</div><div class="line">alert(p.Salary);</div></pre></td></tr></table></figure></p>
+<h3 id="好好看看这张图"><a href="#好好看看这张图" class="headerlink" title="好好看看这张图"></a>好好看看这张图</h3><p>附图一张<img src="http://172.16.1.15:8888/files/1489371185286extends.jpg" alt="image"></p>
+<p><code>文字说明</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var p = new Programmer(); 得到 p.__proto__=Programmer.prototype;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Programmer.prototype=new Person();</div></pre></td></tr></table></figure>
 <p>将上述式子拆开，可以得到以下结论：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var p1=new Person();</div><div class="line">Programmer.prototype=p1;</div><div class="line">//于是由</div><div class="line">p1.__proto__=Person.prototype;</div><div class="line">// 得到</div><div class="line">Programmer.prototype.__proto__=Person.prototype;</div><div class="line">//又由于</div><div class="line">p.__proto__=Programmer.prototype;</div><div class="line">//所以 </div><div class="line">p.__proto__.__proto__=Person.prototype;</div></pre></td></tr></table></figure></p>
-<p><code>好好分析</code> 来看上面的结果,p.Say()。由于p没有Say这个属性，于是去<figure class="highlight plain"><figcaption><span>Programmer.prototype，也就是p1中去找，由于p1中也没有Say，那就去```p.__proto__.__proto__```，也就是 ```Person.prototype中```去找，于是就找到了alert(“Person say”)的方法。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">其余的也都是同样的道理。</div><div class="line"></div><div class="line">这也就是原型链的实现原理。</div><div class="line">最后，其实prototype只是一个假象，他在实现原型链中只是起到了一个辅助作用，换句话说，他只是在new的时候有着一定的价值，而原型链的本质，其实在于```__proto__```！</div><div class="line"></div><div class="line"></div><div class="line">**还是那句话**： 一个对象的```__proto__```等于创建该对象的构造函数的prototype，然后就像用数学式子推导一下，列出以一堆```__proto__```链子，一直顺着```__proto__```链子找下去即可。记住下边的例子</div></pre></td></tr></table></figure></p>
-<p>var Person = function () { };<br>var p = new Person();<br>alert(p.<strong>proto</strong> === Person.prototype); //true<br>```</p>
-
+<p><code>好好分析</code> 来看上面的结果,p.Say()。由于p没有Say这个属性，于是去<code>p.__proto__</code>，也就是 Programmer.prototype，也就是p1中去找，由于p1中也没有Say，那就去<code>p.__proto__.__proto__</code>，也就是 <code>Person.prototype中</code>去找，于是就找到了alert(“Person say”)的方法。</p>
+<p>其余的也都是同样的道理。</p>
+<p>这也就是原型链的实现原理。<br>最后，其实prototype只是一个假象，他在实现原型链中只是起到了一个辅助作用，换句话说，他只是在new的时候有着一定的价值，而原型链的本质，其实在于<code>__proto__</code>！</p>
+<p><strong>还是那句话</strong>： 一个对象的<code>__proto__</code>等于创建该对象的构造函数的prototype，然后就像用数学式子推导一下，列出以一堆<code>__proto__</code>链子，一直顺着<code>__proto__</code>链子找下去即可。记住下边的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var Person = function () &#123; &#125;;</div><div class="line">var p = new Person();</div><div class="line">alert(p.__proto__ === Person.prototype); //true</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -440,8 +443,8 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/13/bingtang-asynchronous/" rel="next" title="js的单线程与异步">
-                <i class="fa fa-chevron-left"></i> js的单线程与异步
+              <a href="/2017/03/03/bingtang-gitUse/" rel="next" title="git的使用">
+                <i class="fa fa-chevron-left"></i> git的使用
               </a>
             
           </div>
@@ -450,8 +453,8 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/17/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/13/bingtang-ten_features_of_ES6S/" rel="prev" title="ES6十大特性">
+                ES6十大特性 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -572,7 +575,7 @@ prototype与__proto__【其实只要记住一句话】：对象的__proto__等�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#prototype与-proto"><span class="nav-number">1.</span> <span class="nav-text">prototype与__proto__</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#prototype与-proto"><span class="nav-number">1.</span> <span class="nav-text">prototype与__proto__</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#好好看看这张图"><span class="nav-number">1.1.</span> <span class="nav-text">好好看看这张图</span></a></li></ol></li></ol></div>
             
 
           </div>
