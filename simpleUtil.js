@@ -35,7 +35,8 @@
           console.log('hm.src:',hm.src);
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
-          
+
+        console.log("hm:",hm);
         console.log("1222333");
  
     // })();
