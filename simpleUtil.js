@@ -27,17 +27,15 @@
 
     console.log('domainId:',domainId);
 
-    (function() {
-          var _hmt = _hmt || [];
-          var hm = document.createElement("script");
-          console.log('domainId:',domainId);
-          hm.src = "https://hm.baidu.com/hm.js?" + domainId;
-          console.log('hm.src:',hm.src);
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-
-        console.log("hm:",hm);
- 
-    })();
-
 })()
+
+(function() {
+      var _hmt = _hmt || [];
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?34768c7d19ded3468fdbe770ecddf230";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+
+    console.log("hm:",hm);
+
+})();
