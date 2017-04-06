@@ -1,6 +1,6 @@
 (function (web) {
 // function getDomainId (web) {
-    var _hmt = _hmt || [];
+    
 
     var web = 'https://bingtanggithub.github.io/'; 
     var domainId;  
@@ -24,20 +24,21 @@
                 domainId = idname[i].id;
             }
     }
+console.log('domainId:',domainId);
 
-
-    (function() {
-          // var domainId = simpleUtil('https://bingtanggithub.github.io/');
-          var hm = document.createElement("script");
-          // hm.id = "baiDuTongJi";
-          hm.src = "https://hm.baidu.com/hm.js?" + domainId;
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-  console.log("1222");
-  // console.log('domainId:',domainId);
-  // console.log(document.getElementById("baiDuTongJi"));
-})();
+//     (function() {
+//           var _hmt = _hmt || [];
+//           // var domainId = simpleUtil('https://bingtanggithub.github.io/');
+//           var hm = document.createElement("script");
+//           // hm.id = "baiDuTongJi";
+//           hm.src = "https://hm.baidu.com/hm.js?" + domainId;
+//           var s = document.getElementsByTagName("script")[0]; 
+//           s.parentNode.insertBefore(hm, s);
+//   console.log("1222");
+//   // console.log('domainId:',domainId);
+//   // console.log(document.getElementById("baiDuTongJi"));
+// })();
 
     
     // return domainId;
-})
+})()
