@@ -290,6 +290,192 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://bingTangGithub.github.io/2017/03/27/communicate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shirley">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bingTang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/27/communicate/" itemprop="url">
+                  git的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-27T00:00:00+08:00">
+                2017-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件之间通信/" itemprop="url" rel="index">
+                    <span itemprop="name">组件之间通信</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Welcome to <a href="https://bingtanggithub.github.io/">bingTang的博客</a>! If you get any problems when reading, you can send me an email 1569025161@qq.com.</p>
+<h2 id="组件之间的通信方式"><a href="#组件之间的通信方式" class="headerlink" title="组件之间的通信方式"></a>组件之间的通信方式</h2><ul>
+<li>父向子</li>
+<li>子向父</li>
+<li>兄弟间</li>
+</ul>
+<p>这里主要介绍前两种</p>
+<h2 id="1-父组件向子组件通信（子类用父类的资源）"><a href="#1-父组件向子组件通信（子类用父类的资源）" class="headerlink" title="1.父组件向子组件通信（子类用父类的资源）"></a>1.父组件向子组件通信（子类用父类的资源）</h2><ul>
+<li><p>子组件用父组件属性 </p>
+<p>  eg:这里的<code>likedText</code>与<code>unlikedText</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">class LikeButton extends Component &#123;</div><div class="line">	render () &#123;</div><div class="line">	    return (</div><div class="line">	      	&lt;ToggleButton likedText=&apos;喜欢&apos; unlikedText=&apos;讨厌&apos; /&gt;</div><div class="line">	    );</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line">class ToggleButton extends Component &#123;</div><div class="line">	constructor () &#123;</div><div class="line">		super();</div><div class="line">		this.handleClickOnLikeButton = this.handleClickOnLikeButton.bind(this);</div><div class="line">		this.state = &#123;isLiked: true&#125;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	handleClickOnLikeButton () &#123;</div><div class="line">		this.setState(&#123;</div><div class="line">			isLiked: !this.state.isLiked</div><div class="line">		&#125;)</div><div class="line">	&#125;</div><div class="line"></div><div class="line">  	render () &#123;</div><div class="line">	    return (</div><div class="line">	        &lt;button onClick=&#123;this.handleClickOnLikeButton&#125; &gt;	</div><div class="line">				&#123;this.state.isLiked ? this.props.likedText : this.props.unlikedText&#125;</div><div class="line">			&lt;/button&gt;</div><div class="line">	    );</div><div class="line">  	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>子组件用父组件方法</p>
+<p> eg：这里的<code>handleChange</code>方法</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"> class HelloMessage  extends Component &#123;</div><div class="line">	constructor () &#123;</div><div class="line">		super();</div><div class="line">		this.handleChange = this.handleChange.bind(this);</div><div class="line">		this.state = &#123;value: &apos;Hello Runoob!&apos;&#125;;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	handleChange (event) &#123;		</div><div class="line">    	this.setState(&#123;value: &apos;菜鸟教程&apos;&#125;);</div><div class="line">  	&#125;</div><div class="line"></div><div class="line">	render () &#123;</div><div class="line">	    return (</div><div class="line">	      	&lt;div&gt;</div><div class="line">            	&lt;Content myDataProp = &#123;this.state.value&#125; </div><div class="line">              		that = &#123;this&#125;&gt;</div><div class="line">              	&lt;/Content&gt;</div><div class="line">           &lt;/div&gt;</div><div class="line">	    );</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">class Content extends Component &#123;</div><div class="line">	handleClick () &#123;</div><div class="line">		let that = this.props.that;</div><div class="line">		that.handleChange();</div><div class="line">	&#125;</div><div class="line">	render () &#123;</div><div class="line">		console.log(&apos;updateStateProp&apos;,this.props.updateStateProp);</div><div class="line">		return(</div><div class="line">	   		&lt;div&gt;</div><div class="line">	            &lt;button onClick = &#123;this.handleClick.bind(this)&#125;&gt;点我&lt;/button&gt;</div><div class="line">	            &lt;h4 style=&#123;&#123;fontSize: &apos;20px&apos;&#125;&#125;&gt;&#123;this.props.myDataProp&#125;&lt;/h4&gt;</div><div class="line">	        &lt;/div&gt;</div><div class="line">	    )</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>这里将父类的<code>this</code>赋给<code>that</code>属性</li>
+<li>在子类中将父类的that属性赋给 that变量，<code>this.props.that</code>，再将父类的方法在子类中包装起来<code>handleClick()</code></li>
+<li>这样在子类中就可以直接调用<code>handleClick</code>啦!</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-子组件向父组件通信（父类用子类的资源）"><a href="#2-子组件向父组件通信（父类用子类的资源）" class="headerlink" title="2.子组件向父组件通信（父类用子类的资源）"></a>2.子组件向父组件通信（父类用子类的资源）</h2><p>要调用子组件的方法或者属性，需要在调用子组件的时候定义<code>ref</code>属性，且唯一</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line">// 父组件用子组件属性</div><div class="line"></div><div class="line">// 子类</div><div class="line">class ButtonComment extends Component &#123;</div><div class="line">	constructor () &#123;</div><div class="line">		super();</div><div class="line">		this.sendSword = this.sendSword.bind(this);</div><div class="line">		this.state = &#123;count: 0 &#125;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">    sendSword () &#123;</div><div class="line">    //这里用回调，setState之后再调用父类的方法进行设置</div><div class="line">        this.setState(&#123;count:this.state.count + 10&#125;, () =&gt; &#123;</div><div class="line">            // debugger;</div><div class="line">            </div><div class="line">            console.log(&apos;this.state.count&apos;,this.state.count);</div><div class="line">            this.props.getSwordCount2();  //子类调用父类方法的正确写法</div><div class="line">            // this.props.getSwordCount2;  //这种写法不会调用的</div><div class="line">            // this.props.getSwordCount();  //这种写法会报错的</div><div class="line">        &#125;); </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render () &#123;</div><div class="line">       return (</div><div class="line">            &lt;button onClick=&#123;this.sendSword&#125;&gt;&#123;this.props.buttonName&#125;&lt;/button&gt;</div><div class="line">       );</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line">class ImDaddyComponent extends Component &#123; </div><div class="line">	constructor () &#123;</div><div class="line">		super();</div><div class="line">		this.sendSwordParent = this.sendSwordParent.bind(this);</div><div class="line">		this.getSwordCount = this.getSwordCount.bind(this);</div><div class="line">		this.state = &#123;sendCount: 0 &#125;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">    sendSwordParent () &#123;</div><div class="line">    // 父类调用子类的方法</div><div class="line">        this.refs.getSwordButton.sendSword();</div><div class="line">        console.log(&apos; this.refs.getSwordButton&apos;, this.refs.getSwordButton);</div><div class="line">    &#125; </div><div class="line"></div><div class="line">    getSwordCount () &#123;</div><div class="line">        //通过  this.refs.getSwordButton 获取 子类对象 加完之后将加完的结果通知给子类，即，将结果通过 this.refs.getSwordButton 给子类的state.count 设置</div><div class="line">        this.setState(&#123;sendCount: this.refs.getSwordButton.state.count + 1&#125;, () =&gt; &#123;</div><div class="line">            </div><div class="line">            this.refs.getSwordButton.setState(&#123;</div><div class="line">                count: this.refs.getSwordButton.state.count + 1</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render () &#123;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;ButtonComment ref=&quot;getSwordButton&quot; getSwordCount2=&#123;this.getSwordCount&#125; buttonName=&quot;儿子送宝刀&quot;/&gt;</div><div class="line">                &lt;button onClick=&#123;this.sendSwordParent&#125;&gt;通过老爸送宝刀&lt;/button&gt;</div><div class="line">                &lt;p style=&#123;&#123;fontSize: &apos;20px&apos;&#125;&#125;&gt;</div><div class="line">                    父子俩共送&#123;this.state.sendCount&#125;把宝刀！！！</div><div class="line">                &lt;/p&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">        &lt;ImDaddyComponent /&gt;,</div><div class="line">        document.getElementById(&apos;app&apos;)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>【总结】</p>
+<ul>
+<li><p>1.子类调用父类方法时，<code>this.props.getSwordCount2()</code>，其中<code>getSwordCount2</code>为父类的属性，调用它要加<code>()</code>，</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">this.props.getSwordCount2;  //这种写法不会调用的</div><div class="line">this.props.getSwordCount();  //这种写法会报错的</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.父类调用子类方法时</p>
+<p>  通过 <code>this.refs.getSwordButton</code> 获取子类，然后<code>.sendSword()</code>，其中<code>sendSword()</code>为子类的方法</p>
+</li>
+<li><p>3.回调的运用</p>
+<p>  想子类setSate之后再通过父类改变状态，</p>
+<pre><code>`this.setState({}, () =&gt; {
+   调用父类方法
+});` 
+</code></pre></li>
+<li><p>4.通知子类</p>
+<p>  父类改变状态之后，重新找到子类，给子类 setSate,</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://bingTangGithub.github.io/2017/03/17/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1246,7 +1432,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/归档">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1257,7 +1443,7 @@
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -1401,7 +1587,18 @@
 
 
   <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  
 
+
+<!-- <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?013eeddbba92797f0529dcc066d91a44";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> -->
 
 
   

@@ -1,0 +1,43 @@
+(function (web) {
+// function getDomainId (web) {
+    var _hmt = _hmt || [];
+
+    var web = web; 
+    var domainId;  
+    var idname = [
+                    {
+                        domain: 'bingtanggithub.github.io',
+                        id: '013eeddbba92797f0529dcc066d91a44'
+                    }, //我的博客
+                    {
+                        domain: 'user.qzone.qq.com/1569025161/infocenter',
+                        id: '593440c1b190e9b67f240ce3e1ee537c'
+                    }, //qq空间
+                    {
+                        domain: 'sjyx.xinguang.com',
+                        id: '9bb005298bfaa0db19d6b3e84688da74'
+                    } //四季严选
+                ];
+
+    for (let i=0; i<idname.length; i++) {
+            if (web.indexOf(idname[i].domain) != -1) {
+                domainId = idname[i].id;
+            }
+    }
+
+
+    (function() {
+          var domainId = simpleUtil('https://user.qzone.qq.com/1569025161/infocenter');
+          var hm = document.createElement("script");
+          // hm.id = "baiDuTongJi";
+          hm.src = "https://hm.baidu.com/hm.js?" + domainId;
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+  console.log("1222");
+  // console.log('domainId:',domainId);
+  // console.log(document.getElementById("baiDuTongJi"));
+})();
+
+    
+    // return domainId;
+}
