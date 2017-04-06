@@ -19,9 +19,21 @@
         } //四季严选
     ];
 
+    for (var i=0; i < idname.length; i++) {
+        try {
+          if (web.indexOf(idname[i].domain) != -1) {
+              domainId = idname[i].id;
+          }
+        } catch(e) {
+          throw new Error(e);
+        }
+    }
+
+    console.log('domainId:',domainId);
+
     var _hmt = _hmt || [];
     var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?"+ idname[0].id;
+    hm.src = "https://hm.baidu.com/hm.js?"+ domainId;
     var s = document.getElementsByTagName("script")[0]; 
     s.parentNode.insertBefore(hm, s);
 
