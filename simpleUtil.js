@@ -37,7 +37,6 @@
           s.parentNode.insertBefore(hm, s);
 
         console.log("hm:",hm);
-        console.log("1222333");
  
     })();
 
