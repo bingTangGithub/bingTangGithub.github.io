@@ -27,7 +27,7 @@
 
     console.log('domainId:',domainId);
 
-    // (function() {
+    (function() {
           var _hmt = _hmt || [];
           var hm = document.createElement("script");
           console.log('domainId:',domainId);
@@ -39,6 +39,6 @@
         console.log("hm:",hm);
         console.log("1222333");
  
-    // })();
+    })();
 
 })()
