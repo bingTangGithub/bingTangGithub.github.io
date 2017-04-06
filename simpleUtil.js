@@ -26,18 +26,18 @@
     }
 console.log('domainId:',domainId);
 
-//     (function() {
-//           var _hmt = _hmt || [];
-//           // var domainId = simpleUtil('https://bingtanggithub.github.io/');
-//           var hm = document.createElement("script");
-//           // hm.id = "baiDuTongJi";
-//           hm.src = "https://hm.baidu.com/hm.js?" + domainId;
-//           var s = document.getElementsByTagName("script")[0]; 
-//           s.parentNode.insertBefore(hm, s);
-//   console.log("1222");
-//   // console.log('domainId:',domainId);
-//   // console.log(document.getElementById("baiDuTongJi"));
-// })();
+    (function() {
+          var _hmt = _hmt || [];
+          // var domainId = simpleUtil('https://bingtanggithub.github.io/');
+          var hm = document.createElement("script");
+          // hm.id = "baiDuTongJi";
+          hm.src = "https://hm.baidu.com/hm.js?" + domainId;
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+  console.log("1222");
+  // console.log('domainId:',domainId);
+  // console.log(document.getElementById("baiDuTongJi"));
+})();
 
     
     // return domainId;
