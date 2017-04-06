@@ -2,12 +2,12 @@
 // function getDomainId (web) {
     var _hmt = _hmt || [];
 
-    var web = web; 
+    var web = 'https://bingtanggithub.github.io/'; 
     var domainId;  
     var idname = [
                     {
                         domain: 'bingtanggithub.github.io',
-                        id: '013eeddbba92797f0529dcc066d91a44'
+                        id: '34768c7d19ded3468fdbe770ecddf230'
                     }, //我的博客
                     {
                         domain: 'user.qzone.qq.com/1569025161/infocenter',
@@ -27,7 +27,7 @@
 
 
     (function() {
-          var domainId = simpleUtil('https://user.qzone.qq.com/1569025161/infocenter');
+          // var domainId = simpleUtil('https://bingtanggithub.github.io/');
           var hm = document.createElement("script");
           // hm.id = "baiDuTongJi";
           hm.src = "https://hm.baidu.com/hm.js?" + domainId;
