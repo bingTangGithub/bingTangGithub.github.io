@@ -30,11 +30,13 @@
     (function() {
           var _hmt = _hmt || [];
           var hm = document.createElement("script");
+          console.log('domainId:',domainId);
           hm.src = "https://hm.baidu.com/hm.js?" + domainId;
+          console.log('hm.src:',hm.src);
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
         console.log("1222333");
  
     })();
-    
+
 })()
