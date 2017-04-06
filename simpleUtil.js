@@ -19,7 +19,7 @@
         } //四季严选
     ];
 
-    for (var i=0; i < idname.length; i++) {
+    for (let i=0; i < idname.length; i++) {
         try {
           if (web.indexOf(idname[i].domain) != -1) {
               domainId = idname[i].id;
