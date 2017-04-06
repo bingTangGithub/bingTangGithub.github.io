@@ -34,7 +34,7 @@ console.log('domainId:',domainId);
           hm.src = "https://hm.baidu.com/hm.js?" + domainId;
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
-  console.log("1222");
+  console.log("1222333");
   // console.log('domainId:',domainId);
   // console.log(document.getElementById("baiDuTongJi"));
 })();
